@@ -1,11 +1,15 @@
 let arr = [5, 3, 8, 1];
 
-let filtered = arr.filter(filteredRange);
+let filtered = filteredRange(arr, 1, 4);
 
 console.log(filtered);
 
-function filteredRange(num) {
-    let a = 1;
-    let b = 4;
-    return num >= a && num <= b;
+   // Use .filter() with a function inside to return a new array containing elements between a and b.
+   // Removes the hard-coded values I had before
+
+function filteredRange(arr, a, b) {
+
+    return arr.filter(function(num) {
+        return num >= a && num <= b
+    });
 }
