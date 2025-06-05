@@ -1,2 +1,2 @@
 # Javascript-practice-Odin
-Practice projects for Javascript created through following The Odin Project
+Practice projects for Javascript created whilst following The Odin Project
