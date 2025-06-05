@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.home-page {
+    text-align: center;
+    margin-top: 15%;
+}
+
+.homepage-title {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.home-page ul li {
+    display: inline-block;
+    padding: 10px;
+}
+
+.home {
+    color: #3d3838;
+    font-weight: 700;
+    text-decoration: none;
+    position: absolute;
+    padding: 15px;
+    margin: 8px 0px;
+    background-color: #fff;
+
+}
+
+.home:hover {
+    color: #1917a3;
+}
+
+.hero-container {
+    height: 40vh;
+    overflow: hidden;
+}
+
+.hero-img {
+      width: 100vw;
+}
+
+.bacon-pasta-img {
+    height: 800px;
+    object-fit: cover;
+}
+
+.recipe-title {
+    text-align: center;
+    font-size: 28px;
+    margin: 20px;
+}
+
+.description p {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 25px;
+}
+
+.description {
+    text-align: center;
+}
+
+.ingredients {
+    width: 20%;
+    margin-left: 5%;
+    position: absolute;
+    display: inline-block;
+}
+
+.ingredients h3 {
+    margin: 20px 0px 10px 0px;
+}
+
+.ingredients ul{
+    line-height: 30px;
+}
+
+.method {
+    margin-top: 50px;
+    margin-left: 32%;
+    position: relative;
+    display: inline-block;
+}
+
+.method ol {
+    line-height: 25px;
+}

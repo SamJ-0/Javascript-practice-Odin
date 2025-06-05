@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+.hero,
+footer {
+    background-color: #1F2937;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 150px;
+}
+
+.logo,
+.hero-text {
+    font-weight: 900;
+    color: #f9faf8;
+}
+
+.logo {
+    font-size: 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+}
+
+.nav-links a,
+.hero-secondary-text {
+    font-size: 18px;
+    text-decoration: none;
+    color: #e5e7eb;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    padding: 80px 150px;
+}
+
+.hero-action {
+    width: 450px;
+}
+
+.hero-img {
+    width: 500px;
+}
+
+.hero-btn {
+    color: #e5e7eb;
+    font-weight: 700;
+    padding: 8px 24px;
+    background-color: #3882f6;
+    border: none;
+    border-radius: 6px;
+    margin-top: 16px;
+}
+
+.gallery {
+    padding: 40px 0;
+}
+
+.gallery h2 {
+    display: flex;
+    font-size: 36px;
+    color: #1f2937;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.images img, .text {
+    width: 250px;
+}
+
+.images img {
+    padding-bottom: 8px;
+}
+
+.quote-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #e5e7eb;
+    padding: 120px;
+}
+
+.inspirational-quote {
+    width: 800px;
+    justify-items: flex-end;
+}
+
+.quote {
+    font-size: 36px;
+    font-weight: 200;
+    font-style: italic;
+}
+
+.quote-credit {
+    font-size: 18px;
+}
+
+.call-to-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 80px;
+}
+
+.action-container {
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #3882f6;
+    border: 2px solid #3882f6;
+    border-radius: 6px;
+}
+
+.action-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.action-description {
+    font-weight: 300;
+}
+
+.action-btn {
+    color: #e5e7eb;
+    font-weight: 700;
+    padding: 8px 24px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    margin-top: 16px;
+}
+
+footer {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
