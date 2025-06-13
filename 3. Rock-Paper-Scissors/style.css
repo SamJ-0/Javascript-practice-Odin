@@ -4,9 +4,7 @@
     box-sizing: border-box;
 }
 
-html, body {
-    display: flex;
-    justify-content: center;
+body {
     width: 100%;
     font-family: "Roboto", "Open Sans", sans-serif;
 }
@@ -36,8 +34,27 @@ button {
     background-color: #2d3436;
 }
 
+#scissorsBtn {
+    color: #fff;
+    /* color: #2d3436; */
+    background-color: #fbc531;
+}
+
+#rockBtn {
+    color: #fff;
+    background-color: #0097e6;
+}
+
 button:hover {
     background-color: #3a4d53;
+}
+
+#rockBtn:hover {
+    background-color: #0080c5;
+}
+
+#scissorsBtn:hover {
+    background-color: #e5b42b;
 }
 
 .jsContent {
