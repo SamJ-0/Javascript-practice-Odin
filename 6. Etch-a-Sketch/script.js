@@ -12,11 +12,16 @@ const topPage = document.querySelector(".topPage");
 
 function createGrid(num) {
     let gridSize = num*num;
+    let divSize = 960 / num + "px";
     
     for(let i = gridSize; i > 0; i--) {
         const newDiv = document.createElement("div");
         newDiv.classList.add("gridPiece");
-        newDiv.textContent = i;
+        newDiv.style.height = divSize;
+        newDiv.style.width = divSize;
+
+        newDiv.addEventListener("mouseover", draw);
+
         container.appendChild(newDiv);
     }
 }
@@ -37,4 +42,9 @@ function userGridSize() {
         }
     }
     createGrid(userNumber);
+}
+
+function draw(event) {
+   event.target.style.backgroundColor = "#353b48";
+   event.target.style.border = "1px solid #636e72";
 }
