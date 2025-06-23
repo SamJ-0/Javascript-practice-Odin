@@ -6,6 +6,7 @@
 
 html, body {
     height: 100%;
+    width: 100%;
     font-family: 'Lato', 'Arial', sans-serif;
     background-color:#4834d4;
 }
@@ -19,11 +20,18 @@ html, body {
 
 .calculator-body {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    height: 425px;
+    align-content: flex-start;
+    height: 420px;
     width: 300px;
     background-color: #dcdde1;
     padding: 10px;
+}
+
+.calculator-body, .display, button {
+    border: none;
+    border-radius: 3px;
 }
 
 .display {
@@ -31,24 +39,51 @@ html, body {
     justify-content: flex-end;
     align-items: flex-end;
     height: 100px;
-    width: 300px;
+    width: 290px;
     padding: 10px;
     background-color: #fbc531;
 }
 
 .display-text {
+    color: #2c2e30;
     font-size: 30px;
     font-weight: 700;
 }
 
-.numberBtns, .operatorBtns {
+.button-elements {
+    height: 75%;
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    flex-direction: row;
+    padding-top: 10px;
 }
 
-button {
-    padding: 5px 30px;
+.numberBtns {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+}
+
+.numbers {
+    font-size: 16px;
+    width: 65px;
+}
+
+#num0 {
+    min-width: 35px;
+    max-width: 134px;
+}
+
+.operatorBtns {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.operators, .delete {
+    font-size: 16px;
+    width: 70px;
+    flex: 1;
 }
 
 #equals {
