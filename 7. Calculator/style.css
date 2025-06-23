@@ -38,7 +38,7 @@ html, body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    height: 100px;
+    height: 110px;
     width: 290px;
     padding: 10px;
     background-color: #fbc531;
@@ -51,7 +51,7 @@ html, body {
 }
 
 .button-elements {
-    height: 75%;
+    height: 72%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -87,5 +87,14 @@ html, body {
 }
 
 #equals {
+    color: #2c2e30;
     background-color: #fbc531;
+}
+
+#equals:hover {
+   background-color: #ffcd44; 
+}
+
+button:hover {
+    background-color: #f4f4f7;
 }
