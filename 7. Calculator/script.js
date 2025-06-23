@@ -1,3 +1,5 @@
+const displayText = document.querySelector(".display");
+
 const operator = ["+", "-","*", "/"];
 let num1 = 3;
 let num2 = 5;

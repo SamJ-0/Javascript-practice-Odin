@@ -60,6 +60,7 @@ html, body {
 
 .numberBtns {
     display: flex;
+    flex-wrap: wrap;
     flex: 1;
     gap: 4px;
 }
@@ -70,7 +71,7 @@ html, body {
 }
 
 #num0 {
-    min-width: 35px;
+    flex: 2;
     max-width: 134px;
 }
 
