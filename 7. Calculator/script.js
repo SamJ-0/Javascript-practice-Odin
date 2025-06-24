@@ -5,11 +5,11 @@ const operator = ["+", "-","*", "/"];
 let numbers1 = 0;
 let numbers2 = 5;
 
-let isDefaultDigit = true;
+let isInitialDisplayValue = true;
 
-    if (isDefaultDigit === true) {
-        displayText.textContent = 0;
-    }
+if (isInitialDisplayValue) {
+    displayText.textContent = 0;
+}
 
 function add(a, b) {
     return a + b;
@@ -49,14 +49,16 @@ numbers.forEach(function(numBtns) {
 
 function populateDisplay(event) {
     const numberLength = displayText.textContent.length;
-    
-    isDefaultDigit = false
 
-    if(isDefaultDigit != true && numbers1 === 0) {
-        numbers1 = displayText.textContent = event.target.textContent;
-        console.log(isDefaultDigit);
-    } else if(numbers1 > 0 && numberLength < 12) {
+    isInitialDisplayValue = false;
+
+    if(!isInitialDisplayValue) {
            numbers1 = displayText.textContent += event.target.textContent;
            console.log("numbers1 = " + numbers1);
-        }
+    } else {
+        isInitialDisplayValue = true;
+    }
+
+    console.log(isInitialDisplayValue);
+    
 }
