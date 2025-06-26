@@ -14,8 +14,9 @@ html, body {
 .container {
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 20px;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 .calculator-body {
@@ -40,14 +41,14 @@ html, body {
     align-items: flex-end;
     height: 110px;
     width: 290px;
-    padding: 10px;
+    padding-right: 10px;
     background-color: #f5f6fa;
     border-bottom: 3px solid #fbc531;
 }
 
 .display-text {
     color: #2c2e30;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 700;
 }
 
@@ -70,11 +71,6 @@ html, body {
     font-size: 16px;
     width: 65px;
 }
-/* 
-#num0 {
-    flex: 2;
-    max-width: 134px;
-} */
 
 .numbers, .equals, .operators, .delete {
     background-color: #f5f6fa;

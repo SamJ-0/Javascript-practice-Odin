@@ -1,15 +1,13 @@
 const displayText = document.querySelector(".display-text");
+
 const numbers = document.querySelectorAll(".numbers");
+const operators = document.querySelectorAll(".operators");
+const deleteBtns = document.querySelectorAll(".delete");
 
-const operator = ["+", "-","*", "/"];
-let numbers1 = 0;
-let numbers2 = 5;
-
-let isInitialDisplayValue = true;
-
-if (isInitialDisplayValue) {
-    displayText.textContent = 0;
-}
+let operator = "";
+let isOperatorChosen = false;
+let firstNum = 0;
+let secondNum = 0;
 
 function add(a, b) {
     return a + b;
@@ -41,24 +39,62 @@ function operate(a, b, operator) {
     }
 }
 
-console.log(operate("3", numbers2, operator[2]));
+populateDisplay();
 
-numbers.forEach(function(numBtns) {
-    numBtns.addEventListener("click", populateDisplay);
+function populateDisplay() {
+
+    numbers.forEach(function(numBtns) {
+    numBtns.addEventListener("click", getNumbers);
 })
 
-function populateDisplay(event) {
-    const numberLength = displayText.textContent.length;
+operators.forEach(function(opBtns) {
+    opBtns.addEventListener("click", getOperator);
+})
 
-    isInitialDisplayValue = false;
-
-    if(!isInitialDisplayValue) {
-           numbers1 = displayText.textContent += event.target.textContent;
-           console.log("numbers1 = " + numbers1);
-    } else {
-        isInitialDisplayValue = true;
-    }
-
-    console.log(isInitialDisplayValue);
-    
 }
+
+function getNumbers(event) {
+
+    if(displayText.textContent === "0" && !isOperatorChosen) {
+        firstNum = displayText.textContent = event.target.textContent;
+        console.log("firstNum = " + firstNum);
+        console.log(isOperatorChosen);
+    } else if (!isOperatorChosen) {
+        firstNum += event.target.textContent;
+        displayText.textContent = firstNum;
+        console.log("firstNum = " + firstNum);
+    } else if(secondNum === 0 && isOperatorChosen) {
+        secondNum = displayText.textContent = event.target.textContent;
+        console.log("SecondNum = " + secondNum);
+        console.log(isOperatorChosen);
+    } else if(isOperatorChosen && secondNum != 0) {
+        secondNum += event.target.textContent;
+        displayText.textContent = secondNum;
+        console.log("secondNum = " + secondNum);
+    }
+}
+
+function getOperator(event) {
+
+    if(event.target.textContent === "+") {
+        operator = event.target.textContent;
+         console.log(operator);
+        return isOperatorChosen = true;
+    } else if(event.target.textContent === "-") {
+        operator = event.target.textContent;
+         console.log(operator);
+        return isOperatorChosen = true;
+    } else if(event.target.textContent === "x") {
+        operator = event.target.textContent;
+         console.log(operator);
+        return isOperatorChosen = true;
+    } else if(event.target.textContent === "/") {
+        operator = event.target.textContent;
+         console.log(operator);
+        return isOperatorChosen = true;
+    } else {
+        console.log("Something isn't quite right " + operator);
+    }
+}
+
+// console.log(operate("3", "5", operator));
