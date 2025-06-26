@@ -2,6 +2,7 @@ const displayText = document.querySelector(".display-text");
 
 const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
+const equals = document.querySelector(".equals");
 const deleteBtns = document.querySelectorAll(".delete");
 
 let operator = "";
@@ -30,12 +31,12 @@ function operate(a, b, operator) {
         return add(a, b);
     } else if(operator === "-") {
         return subtract(a, b);
-    } else if(operator === "*") {
+    } else if(operator === "x") {
         return multiply(a, b);
     } else if(operator === "/") {
         return divide(a, b);
     } else {
-        console.log("Please enter either: +, -, * or /");
+        displayText.textContent = "Please enter either: +, -, * or /";
     }
 }
 
@@ -51,50 +52,36 @@ operators.forEach(function(opBtns) {
     opBtns.addEventListener("click", getOperator);
 })
 
+equals.addEventListener("click", calculate);
+
+
 }
 
 function getNumbers(event) {
 
     if(displayText.textContent === "0" && !isOperatorChosen) {
         firstNum = displayText.textContent = event.target.textContent;
-        console.log("firstNum = " + firstNum);
-        console.log(isOperatorChosen);
     } else if (!isOperatorChosen) {
         firstNum += event.target.textContent;
         displayText.textContent = firstNum;
-        console.log("firstNum = " + firstNum);
     } else if(secondNum === 0 && isOperatorChosen) {
         secondNum = displayText.textContent = event.target.textContent;
-        console.log("SecondNum = " + secondNum);
-        console.log(isOperatorChosen);
     } else if(isOperatorChosen && secondNum != 0) {
         secondNum += event.target.textContent;
         displayText.textContent = secondNum;
-        console.log("secondNum = " + secondNum);
     }
 }
 
 function getOperator(event) {
-
-    if(event.target.textContent === "+") {
-        operator = event.target.textContent;
-         console.log(operator);
-        return isOperatorChosen = true;
-    } else if(event.target.textContent === "-") {
-        operator = event.target.textContent;
-         console.log(operator);
-        return isOperatorChosen = true;
-    } else if(event.target.textContent === "x") {
-        operator = event.target.textContent;
-         console.log(operator);
-        return isOperatorChosen = true;
-    } else if(event.target.textContent === "/") {
-        operator = event.target.textContent;
-         console.log(operator);
-        return isOperatorChosen = true;
-    } else {
-        console.log("Something isn't quite right " + operator);
-    }
+    operator = event.target.textContent;
+    isOperatorChosen = true;
 }
 
-// console.log(operate("3", "5", operator));
+function calculate(event) {
+    let num1 = Number(firstNum);
+    let num2 = Number(secondNum);
+
+if(event.target.textContent === "=") {
+   displayText.textContent = operate(num1, num2, operator);
+}
+}
