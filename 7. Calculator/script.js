@@ -33,10 +33,10 @@ function operate(a, b, operator) {
         return subtract(a, b);
     } else if(operator === "x") {
         return multiply(a, b);
-    } else if(operator === "/") {
+    } else if(operator === "÷") {
         return divide(a, b);
     } else {
-        displayText.textContent = "Please enter either: +, -, * or /";
+        displayText.textContent = "Please enter either: +, -, * or ÷";
     }
 }
 
