@@ -3,12 +3,13 @@ const displayText = document.querySelector(".display-text");
 const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
 const equals = document.querySelector(".equals");
+
 const deleteBtns = document.querySelectorAll(".delete");
 
 let operator = "";
 let isOperatorChosen = false;
-let firstNum = 0;
-let secondNum = 0;
+let firstNum = "0";
+let secondNum = "0";
 
 function add(a, b) {
     return a + b;
@@ -52,8 +53,11 @@ operators.forEach(function(opBtns) {
     opBtns.addEventListener("click", getOperator);
 })
 
-equals.addEventListener("click", calculate);
+deleteBtns.forEach(function(delBtns) {
+    delBtns.addEventListener("click", deleteEntries);
+})
 
+equals.addEventListener("click", calculate);
 
 }
 
@@ -61,12 +65,12 @@ function getNumbers(event) {
 
     if(displayText.textContent === "0" && !isOperatorChosen) {
         firstNum = displayText.textContent = event.target.textContent;
-    } else if (!isOperatorChosen) {
+    } else if (!isOperatorChosen && displayText.textContent.length < 10) {
         firstNum += event.target.textContent;
         displayText.textContent = firstNum;
-    } else if(secondNum === 0 && isOperatorChosen) {
+    } else if(secondNum === "0" && isOperatorChosen) {
         secondNum = displayText.textContent = event.target.textContent;
-    } else if(isOperatorChosen && secondNum != 0) {
+    } else if(isOperatorChosen && secondNum != "0" && displayText.textContent.length < 10) {
         secondNum += event.target.textContent;
         displayText.textContent = secondNum;
     }
@@ -74,6 +78,7 @@ function getNumbers(event) {
 
 function getOperator(event) {
     operator = event.target.textContent;
+    console.log(operator);
     isOperatorChosen = true;
 }
 
@@ -81,7 +86,27 @@ function calculate(event) {
     let num1 = Number(firstNum);
     let num2 = Number(secondNum);
 
-if(event.target.textContent === "=") {
-   displayText.textContent = operate(num1, num2, operator);
+if(event.target.textContent === "=" && firstNum !="0" && secondNum != "0") {
+   displayText.textContent = Number(operate(num1, num2, operator).toFixed(5));
+} else if (secondNum === "0" && operator != "÷") {
+   displayText.textContent = "Enter 2nd number";
+} else if (secondNum === "0"&& operator === "÷") {
+    displayText.textContent = "Can't divide by 0!";
 }
+}
+
+function deleteEntries(event) {
+    if (event.target.textContent === "C") {
+        firstNum = "0";
+        secondNum = "0";
+        operator = "";
+        isOperatorChosen = false;
+        displayText.textContent = "0";
+    } else if(!isOperatorChosen && event.target.textContent === "⌫") {
+        firstNum = firstNum.slice(0, -1);
+        displayText.textContent = firstNum;
+    } else if(isOperatorChosen && event.target.textContent ==="⌫") {
+        secondNum = secondNum.slice(0, -1);
+        displayText.textContent = secondNum;
+    }
 }
