@@ -1,4 +1,5 @@
 const displayText = document.querySelector(".display-text");
+const calcDisplay = document.querySelector(".calc-display");
 
 const numbers = document.querySelectorAll(".numbers");
 const operators = document.querySelectorAll(".operators");
@@ -86,6 +87,7 @@ function getNumbers(event) {
 
 function getOperator(event) {
     operator = event.target.textContent;
+    calcDisplay.textContent = `${firstNum} ${operator}`;
     isOperatorChosen = true;
 }
 
@@ -94,6 +96,7 @@ function calculate(event) {
     let num2 = Number(secondNum);
 
 if(event.target.textContent === "=" && firstNum !="0" && secondNum != "0") {
+   calcDisplay.textContent += ` ${secondNum} =`;
    result = displayText.textContent = Number(operate(num1, num2, operator).toFixed(5));
 }
 else if (secondNum === "0" && operator != "÷") {
@@ -137,4 +140,5 @@ function resetCalculator() {
         operator = "";
         isOperatorChosen = false;
         displayText.textContent = "0";
+        calcDisplay.textContent = "";
 }
