@@ -69,17 +69,19 @@ equals.addEventListener("click", calculate);
 
 function getNumbers(event) {
 
+    let isTextLengthLimit = displayText.textContent.length < 10;
+    
     if(displayText.textContent === "0" && !isOperatorChosen) {
         firstNum = displayText.textContent = event.target.textContent;
     } 
-    else if(!isOperatorChosen && displayText.textContent.length < 10) {
+    else if(!isOperatorChosen && isTextLengthLimit) {
         firstNum += event.target.textContent;
         displayText.textContent = firstNum;
     } 
     else if(secondNum === "0" && isOperatorChosen) {
         secondNum = displayText.textContent = event.target.textContent;
     } 
-    else if(isOperatorChosen && secondNum != "0" && displayText.textContent.length < 10) {
+    else if(isOperatorChosen && secondNum != "0" && isTextLengthLimit) {
         secondNum += event.target.textContent;
         displayText.textContent = secondNum;
     }
@@ -100,11 +102,13 @@ if(event.target.textContent === "=" && firstNum !="0" && secondNum != "0") {
    result = displayText.textContent = Number(operate(num1, num2, operator).toFixed(5));
 }
 else if (secondNum === "0" && operator != "÷") {
+    calcDisplay.textContent = "";
    displayText.textContent = "Enter 2nd number";
 } 
 else if (secondNum === "0" && operator === "÷") {
     displayText.textContent = "Can't divide by 0!";
 }
+
 }
 
 function deleteEntries(event) {
@@ -135,10 +139,10 @@ function deleteEntries(event) {
 }
 
 function resetCalculator() {
-        firstNum = "0";
-        secondNum = "0";
+        firstNum = "";
+        secondNum = "";
         operator = "";
-        isOperatorChosen = false;
         displayText.textContent = "0";
         calcDisplay.textContent = "";
+        isOperatorChosen = false;
 }
