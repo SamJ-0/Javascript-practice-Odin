@@ -8,10 +8,6 @@ openModal.addEventListener('click', () => {
     modal.showModal();
 })
 
-// closeModal.addEventListener('click', () => {
-//     modal.close();
-// })
-
 closeModal.addEventListener('click', closeDialog);
 closeDialogBtn.addEventListener('click', closeDialog);
 
@@ -91,13 +87,23 @@ function displayShow(arr) {
     });
 }
 
-const show1 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
+const show1 = new Show("Dexter: Season 1", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
 const show2 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
 const show3 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
 const show4 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
+
+const show5 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
+const show6 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
+const show7 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
+const show8 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
 
 addShowToLibrary(show1);
 addShowToLibrary(show2);
 addShowToLibrary(show3);
 addShowToLibrary(show4);
+
+addShowToLibrary(show5);
+addShowToLibrary(show6);
+addShowToLibrary(show7);
+addShowToLibrary(show8);
 displayShow(myLibrary);
