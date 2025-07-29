@@ -1,11 +1,23 @@
 const body = document.querySelector(".container");
 const modal = document.querySelector(".modal");
 const openModal = document.querySelector(".add-show-btn");
+const closeModal = document.querySelector(".cancel-add-show-btn");
+const closeDialogBtn = document.querySelector(".close-dialog");
 
 openModal.addEventListener('click', () => {
     modal.showModal();
 })
 
+// closeModal.addEventListener('click', () => {
+//     modal.close();
+// })
+
+closeModal.addEventListener('click', closeDialog);
+closeDialogBtn.addEventListener('click', closeDialog);
+
+function closeDialog() {
+    modal.close();
+}
 
 const myLibrary = [];
 
@@ -53,7 +65,7 @@ function displayShow(arr) {
         cardEpisodes.textContent = `Episodes: ${element.episodes}`;
         cardSeasons.textContent = `Seasons: ${element.seasons}`;
         cardReleaseDate.textContent = `Released: ${element.releaseDate}`;
-        cardWatched.textContent = `Seen: ${element.watched}`;
+        cardWatched.textContent = `Watch status: ${element.watched}`;
         cardGenre.textContent = element.genre;
 
         cardTitle.classList.add("show-title");
