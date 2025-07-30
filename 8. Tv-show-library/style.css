@@ -57,14 +57,12 @@ dialog.centered {
     width: 35em;
 }
 
-.form-desc {
-    margin-bottom: 10px;
-}
-
 input,
 select {
     font: inherit;
     height: 2em;
+    background-color: #fff;
+    border: 1px solid #7b7b7b;
 }
 
 .close-dialog {
@@ -128,10 +126,12 @@ dialog::backdrop {
 }
 
 .container {
-
     display: grid;
-    grid-template-columns: repeat(4, 20% [col-start]);
-    gap: 2em
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4em;
+
+    width: 95%;
+    margin-inline: auto;
 }
 
 .card {
@@ -186,15 +186,4 @@ dialog::backdrop {
 .remove-btn:hover {
     color: #ffffff;
     background-color: red;
-}
-
-.show-img-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: -1;
-}
-
-.show-img {
-    height: 220px;
 }
