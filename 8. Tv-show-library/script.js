@@ -17,7 +17,7 @@ function closeDialog() {
 
 const myLibrary = [];
 
-function Show(title, episodes, seasons, releaseDate, watched, genre, id) {
+function Show(title, episodes, seasons, releaseDate, watchStatus, genre, id) {
     if (!new.target) {
         throw Error("You must use the `new` operator to call the constructor");
     }
@@ -26,65 +26,18 @@ function Show(title, episodes, seasons, releaseDate, watched, genre, id) {
     this.episodes = episodes;
     this.seasons = seasons;
     this.releaseDate = releaseDate;
-    this.watchStatus = watched;
+    this.watchStatus = watchStatus;
     this.genre = genre;
     this.id = id;
 
     this.info = function() {
-        return `${this.title}, Episodes: ${this.episodes}, Seasons: ${this.seasons}, Released: ${this.releaseDate}, Seen: ${this.watched}`;
+        return `${this.title}, Episodes: ${this.episodes}, Seasons: ${this.seasons}, Released: ${this.releaseDate}, Seen: ${this.watchStatus}`;
     }
 }
 
 function addShowToLibrary(obj) {
     myLibrary.push(obj);
 }
-
-// function displayShow(arr) {
-//     arr.forEach(function(element) {
-//         const addTvShow = document.createElement("div");
-        
-//         const cardTitle = document.createElement("p");
-//         const cardEpisodes = document.createElement("p");
-//         const cardSeasons = document.createElement("p");
-//         const cardReleaseDate = document.createElement("p");
-//         const cardWatched = document.createElement("p");
-
-//         const cardGenreBg = document.createElement("div");
-//         const cardGenre = document.createElement("p");
-
-//         const removeBtn = document.createElement("button");
-
-//         addTvShow.classList.add("card");
-//         addTvShow.setAttribute("data-attribute", element.id);
-
-//         cardTitle.textContent = element.title;
-//         cardEpisodes.textContent = `Episodes: ${element.episodes}`;
-//         cardSeasons.textContent = `Seasons: ${element.seasons}`;
-//         cardReleaseDate.textContent = `Released: ${element.releaseDate}`;
-//         cardWatchStatus.textContent = `Watch status: ${element.watched}`;
-//         cardGenre.textContent = element.genre;
-
-//         cardTitle.classList.add("show-title");
-//         cardGenreBg.classList.add("show-genre-bg-colour");
-//         cardGenre.classList.add("show-genre");
-
-//         addTvShow.appendChild(cardTitle);
-//         addTvShow.appendChild(cardEpisodes);
-//         addTvShow.appendChild(cardSeasons);
-//         addTvShow.appendChild(cardReleaseDate);
-//         addTvShow.appendChild(cardWatched);
-
-//         cardGenreBg.appendChild(cardGenre);
-//         addTvShow.appendChild(cardGenreBg);
-
-//         removeBtn.classList.add("remove-btn");
-//         removeBtn.textContent = "X";
-//         addTvShow.appendChild(removeBtn);
-
-//         body.appendChild(addTvShow);
-
-//     });
-// }
 
 function displayTvShow(arr) {
     arr.forEach(function(element) {
@@ -106,6 +59,7 @@ function createCard(cardTitle, cardEpisodes, cardSeasons, cardReleaseDate, cardW
     const cardBody = document.createElement("div");
     cardBody.classList.add("card");
     cardBody.setAttribute("data-attribute", cardId);
+    button.setAttribute("data-attribute", cardId);
 
     const cardGradient = document.createElement("div");
     cardGradient.classList.add("card-gradient");
@@ -150,13 +104,13 @@ function createButton(textContent, className) {
     return button;
 }
 
-const show1 = new Show("Dexter: Season 1", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
+const show1 = new Show("Dexter: Season 1", 3, "1 season", "11th July 2025", "Watching", "Documentary", crypto.randomUUID());
 const show2 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
-const show3 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
+const show3 = new Show("Dexter: New blood", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
 const show4 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
 
-const show5 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
-const show6 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
+const show5 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Mystery", crypto.randomUUID());
+const show6 = new Show("Leverage: Season 1", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
 const show7 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
 const show8 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
 
@@ -170,3 +124,25 @@ addShowToLibrary(show6);
 addShowToLibrary(show7);
 addShowToLibrary(show8);
 displayTvShow(myLibrary);
+
+const removeCardButton = document.querySelectorAll(".remove-btn");
+
+removeCardButton.forEach((removeBtn) => {
+    removeBtn.addEventListener('click', removeShowData);
+})
+
+function removeShowData(event) {
+    const removeBtnId = event.target.getAttribute("data-attribute");
+    const card = event.target.closest(".card");
+    const cardId = card.getAttribute("data-attribute");
+
+    const libraryId = myLibrary.findIndex((item) => {
+        return removeBtnId === item.id;
+    })
+
+     if(removeBtnId === cardId) {
+        myLibrary.splice(libraryId, 1);
+        card.remove();
+       }
+    console.log(myLibrary);
+}
