@@ -57,12 +57,29 @@ dialog.centered {
     width: 35em;
 }
 
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-desc {
+    margin-bottom: 0.75em;
+}
+
 input,
 select {
     font: inherit;
     height: 2em;
     background-color: #fff;
     border: 1px solid #7b7b7b;
+}
+
+#watch-status {
+    padding-left: 0.25em;
+}
+
+input {
+    padding: 0.25em;
 }
 
 .close-dialog {
@@ -87,13 +104,9 @@ select {
 
 .form-group {
     display: grid;
-    width: 20em;
+    /* width: 20em; */
     padding: 0.5em;
-    gap: 0.5rem;
-}
-
-#watch-status {
-    padding-left: 0.25em;
+    gap: 0.3rem;
 }
 
 .button-group {
@@ -102,7 +115,7 @@ select {
 }
 
 .cancel-add-show-btn,
-.submit-add-show-btn {
+#submit-add-show-btn {
     margin-top: 10px;
     padding: 0.5em 1em;
 
@@ -111,12 +124,12 @@ select {
     border-radius: 3px;
 }
 
-.submit-add-show-btn {
+#submit-add-show-btn {
     color: #eeeeee;
     background-color: rgb(73, 31, 152);
 }
 
-.submit-add-show-btn:hover {
+#submit-add-show-btn:hover {
     color: #e9e9e9;
     background-color: rgb(86, 39, 172);
 }
