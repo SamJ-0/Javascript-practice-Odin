@@ -53,7 +53,7 @@ dialog.centered {
     align-items: center;
     position: relative;
 
-    height: 35em;
+    height: 30em;
     width: 35em;
 }
 
@@ -101,15 +101,19 @@ input {
     color: rgb(125, 125, 125);
 }
 
-
 .form-group {
     display: grid;
-    /* width: 20em; */
     padding: 0.5em;
     gap: 0.3rem;
 }
 
+.grid-col-span-2 {
+    grid-column: 1/ span 2;
+}
+
+
 .button-group {
+    grid-column: 1/ span 2;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
 }
@@ -149,9 +153,8 @@ dialog::backdrop {
 
 .card {
     min-width: 12rem;
-    line-height: 1.75rem;
+    line-height: 1.75em;
     padding: 1.25rem;
-
     
     border-radius: 6px;
     background-color: #fff;
@@ -175,6 +178,17 @@ dialog::backdrop {
     border-radius: 6px;
     margin-top: 1em;
     background-color: rgb(73, 31, 152);
+}
+
+#card-watch-status {
+    font: inherit;
+    /* height: 1.75em; */
+    border-radius: 3px;
+    padding: 0 0.25em;
+}
+
+#card-watch-status[value="Seen"] {
+    background: #a9eef0;
 }
 
 .show-genre {

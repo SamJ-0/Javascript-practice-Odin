@@ -11,6 +11,7 @@ openModal.addEventListener('click', () => {
 closeModal.addEventListener('click', closeDialog);
 closeDialogBtn.addEventListener('click', closeDialog);
 
+
 function closeDialog() {
     modal.close();
 }
@@ -39,37 +40,43 @@ function addShowToLibrary(obj) {
     myLibrary.push(obj);
 }
 
-function displayTvShow(arr) {
-    arr.forEach(function(element) {
+function displayTvShowText(obj) {
 
         const removeBtn = createButton("X", "remove-btn")
-        const title = addParagraphElement(`${element.title}`, "show-title");
-        const episodes = addParagraphElement(`Episodes: ${element.episodes}`, "card-text");
-        const seasons = addParagraphElement(`Seasons: ${element.seasons}`, "card-text");
-        const releaseDate = addParagraphElement(`Released: ${element.releaseDate}`, "card-text");
-        const watchStatus = addParagraphElement(`Watch status: ${element.watchStatus}`, "card-text");
-        const genre = createGenrePill(`${element.genre}`);
+        const title = addParagraphElement(`${obj.title}`, "show-title");
+        const episodes = addParagraphElement(`Episodes: ${obj.episodes}`, "card-text");
+        const seasons = addParagraphElement(`Seasons: ${obj.seasons}`, "card-text");
+        const releaseDate = addParagraphElement(`Released: ${obj.releaseDate}`, "card-text");
+        // const watchStatus = addParagraphElement(`Watch status: ${obj.watchStatus}`, "card-text");
+        const watchStatus = createStatusBadge("card-watch-status", obj.watchStatus, "Seen", "Watching", "Plan to watch", "Dropped");
+        const genre = createGenrePill(`${obj.genre}`);
         
-        createCard(title, episodes, seasons, releaseDate, watchStatus, genre, element.id, removeBtn);
+        createCard(title, episodes, seasons, releaseDate, watchStatus, genre, obj.id, removeBtn);
     
-    });
 }
 
-function createCard(cardTitle, cardEpisodes, cardSeasons, cardReleaseDate, cardWatchStatus, cardGenre, cardId, button ) {
+function createCard(cardTitle, cardEpisodes, cardSeasons, cardReleaseDate, cardWatchStatus, cardGenre, cardId, removeButton ) {
     const cardBody = document.createElement("div");
     cardBody.classList.add("card");
     cardBody.setAttribute("data-attribute", cardId);
-    button.setAttribute("data-attribute", cardId);
+    removeButton.setAttribute("data-attribute", cardId);
+
+    removeButton.addEventListener('click', removeShowData);
 
     const cardGradient = document.createElement("div");
     cardGradient.classList.add("card-gradient");
     cardBody.appendChild(cardGradient);
 
-    cardBody.appendChild(button);
+    const statusLabel = document.createElement("label");
+    statusLabel.setAttribute("for", "card-watch-status");
+    statusLabel.textContent = "Status: ";
+
+    cardBody.appendChild(removeButton);
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardEpisodes);
     cardBody.appendChild(cardSeasons);
     cardBody.appendChild(cardReleaseDate);
+    cardBody.appendChild(statusLabel);
     cardBody.appendChild(cardWatchStatus);
     cardBody.appendChild(cardGenre);
 
@@ -82,6 +89,30 @@ function addParagraphElement(textContent, className) {
     paragraph.classList.add(className);
 
     return paragraph;
+}
+
+function createStatusBadge(statusFor, item, option1, option2, option3, option4) {
+    const statusSelect = document.createElement("select");
+
+    statusSelect.setAttribute("name", statusFor);
+    statusSelect.setAttribute("id", statusFor);
+    statusSelect.classList.add(item);
+
+    statusSelect.appendChild(createStatusBadgeOptions(option1));
+    statusSelect.appendChild(createStatusBadgeOptions(option2));
+    statusSelect.appendChild(createStatusBadgeOptions(option3));
+    statusSelect.appendChild(createStatusBadgeOptions(option4));
+
+    return statusSelect;
+}
+
+function createStatusBadgeOptions(textContent) {
+    const statusOption = document.createElement("option");
+
+    statusOption.value = textContent;
+    statusOption.textContent = textContent;
+
+    return statusOption;
 }
 
 function createGenrePill(textContent) {
@@ -104,33 +135,31 @@ function createButton(textContent, className) {
     return button;
 }
 
-// const show1 = new Show("Dexter: Season 1", 3, "1 season", "11th July 2025", "Watching", "Documentary", crypto.randomUUID());
-// const show2 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
-// const show3 = new Show("Dexter: New blood", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
-// const show4 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
+const modalSubmitButton = document.querySelector("#submit-add-show-btn");
+modalSubmitButton.addEventListener('click', userSubmittedShow);
 
-// const show5 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Mystery", crypto.randomUUID());
-// const show6 = new Show("Leverage: Season 1", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
-// const show7 = new Show("Dexter: Resurrection", 3, "1 season", "11th July 2025", "Watching", "Crime", crypto.randomUUID());
-// const show8 = new Show("Leverage: Redemption", 39, "3 seasons", "22nd October 2021", "Seen", "Heist", crypto.randomUUID());
+function userSubmittedShow(event) {
+    const formTitle = document.querySelector("#title").value;
+    const formEpisodes = document.querySelector("#episodes").value;
+    const formSeasons = document.querySelector("#seasons").value;
+    const formReleased = document.querySelector("#released").value;
+    const formWatchStatus = document.querySelector("#watch-status").value;
+    const formGenre = document.querySelector("#genre").value;
 
-// addShowToLibrary(show1);
-// addShowToLibrary(show2);
-// addShowToLibrary(show3);
-// addShowToLibrary(show4);
+    const formatReleaseDate = new Date(formReleased);
+    const releaseDateFormatted = new Intl.DateTimeFormat("en-GB", {
+        dateStyle: "long",
+    }).format(formatReleaseDate);
 
-// addShowToLibrary(show5);
-// addShowToLibrary(show6);
-// addShowToLibrary(show7);
-// addShowToLibrary(show8);
-addShowToLibrary(userSubmittedShow());
-displayTvShow(myLibrary);
+    const userAddedShow = new Show(formTitle, formEpisodes, formSeasons, releaseDateFormatted, formWatchStatus, formGenre, crypto.randomUUID());
 
-const removeCardButton = document.querySelectorAll(".remove-btn");
+    addShowToLibrary(userAddedShow);
 
-removeCardButton.forEach((removeBtn) => {
-    removeBtn.addEventListener('click', removeShowData);
-})
+    displayTvShowText(userAddedShow);
+    event.preventDefault();
+    closeDialog();
+    document.querySelector("#add-show-form").reset();
+}
 
 function removeShowData(event) {
     const removeBtnId = event.target.getAttribute("data-attribute");
@@ -145,18 +174,5 @@ function removeShowData(event) {
         myLibrary.splice(libraryId, 1);
         card.remove();
        }
-    console.log(myLibrary);
 }
-const modalSubmitButton = document.querySelector("#submit-add-show-btn");
 
-modalSubmitButton.addEventListener('click', userSubmittedShow);
-
-function userSubmittedShow() {
-    const formTitle = document.querySelector("#title").value;
-    const formEpisodes = document.querySelector("#episodes").value;
-    const formSeasons = document.querySelector("#seasons").value;
-    const formReleased = document.querySelector("#released").value;
-    const formWatchStatus = document.querySelector("#watch-status").value;
-
-    return new Show(formTitle, formEpisodes, formSeasons, formReleased, formWatchStatus, "Documentary", crypto.randomUUID());
-}

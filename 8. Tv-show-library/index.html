@@ -21,10 +21,10 @@
         <button class="close-dialog" title="close modal">x</button>
         <h2 class="form-title">Add show</h2>
         <p class="form-desc">Enter show details:</p>
-        <form>
-            <div class="form-group">
+        <form id="add-show-form">
+            <div class="form-group grid-col-span-2">
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" class=".grid-col-span-2" minlength="2" required>
+                <input type="text" name="title" id="title" minlength="2" required>
             </div>
             <div class="form-group">
                 <label for="episodes">Episodes:</label>
@@ -41,14 +41,13 @@
             <div class="form-group">
                 <label for="watch-status">Watch status:</label>
                 <select name="watch-status" id="watch-status">
-                    <option value="seen">Seen</option>
-                    <option value="watching">Watching</option>
-                    <option value="plan-to-watch">Plan to watch</option>
-                    <option value="dropped">Dropped</option>
+                    <option value="Seen">Seen</option>
+                    <option value="Watching">Watching</option>
+                    <option value="Plan-to-watch">Plan to watch</option>
+                    <option value="Dropped">Dropped</option>
                 </select>
             </div>
-
-            <div class="form-group">
+             <div class="form-group grid-col-span-2">
                 <label for="genre">Genre:</label>
                 <input type="text" name="genre" id="genre">
             </div>
