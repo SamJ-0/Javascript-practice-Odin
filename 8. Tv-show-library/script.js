@@ -49,6 +49,7 @@ function displayTvShowText(obj) {
         const releaseDate = addParagraphElement(`Released: ${obj.releaseDate}`, "card-text");
         // const watchStatus = addParagraphElement(`Watch status: ${obj.watchStatus}`, "card-text");
         const watchStatus = createStatusBadge("card-watch-status", obj.watchStatus, "Seen", "Watching", "Plan to watch", "Dropped");
+        // const watchStatus = createStatusBadge("Status:", "watch-status-btn", `${obj.watchStatus}`);
         const genre = createGenrePill(`${obj.genre}`);
         
         createCard(title, episodes, seasons, releaseDate, watchStatus, genre, obj.id, removeBtn);
@@ -91,17 +92,23 @@ function addParagraphElement(textContent, className) {
     return paragraph;
 }
 
-function createStatusBadge(statusFor, item, option1, option2, option3, option4) {
+function createStatusBadge(statusFor, selectedStatus, seen, watching, planToWatch, dropped) {
     const statusSelect = document.createElement("select");
 
     statusSelect.setAttribute("name", statusFor);
     statusSelect.setAttribute("id", statusFor);
-    statusSelect.classList.add(item);
+    statusSelect.classList.add(selectedStatus);
 
-    statusSelect.appendChild(createStatusBadgeOptions(option1));
-    statusSelect.appendChild(createStatusBadgeOptions(option2));
-    statusSelect.appendChild(createStatusBadgeOptions(option3));
-    statusSelect.appendChild(createStatusBadgeOptions(option4));
+    const statusOptions = [seen, watching, planToWatch, dropped];
+
+       statusOptions.forEach((element) => {
+         if(selectedStatus != element) {
+            statusSelect.appendChild(createStatusBadgeOptions(element));
+         }
+         else {
+            statusSelect.appendChild(createStatusBadgeOptions(element)).selected = true;
+         }
+       })
 
     return statusSelect;
 }
