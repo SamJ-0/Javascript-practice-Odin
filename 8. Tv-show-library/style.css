@@ -107,6 +107,23 @@ input {
     gap: 0.3rem;
 }
 
+.form-group input:focus {
+    outline: 0;
+}
+
+.form-group.success input {
+    border-color: #84da0b;
+}
+
+.form-group.error input {
+    border-color: #c23616;
+}
+
+.form-group .error {
+    font-size: 10px;
+    color: #c23616;
+}
+
 .grid-col-span-2 {
     grid-column: 1/ span 2;
 }

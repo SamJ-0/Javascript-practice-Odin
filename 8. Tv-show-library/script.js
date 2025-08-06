@@ -48,7 +48,7 @@ function displayTvShowText(obj) {
         const episodes = addParagraphElement(`Episodes: ${obj.episodes}`, "card-text");
         const seasons = addParagraphElement(`Seasons: ${obj.seasons}`, "card-text");
         const releaseDate = addParagraphElement(`Released: ${obj.releaseDate}`, "card-text");
-        const watchStatus = createStatusBadge("card-watch-status", obj.watchStatus, "Seen", "Watching", "Plan to watch", "Dropped");
+        const watchStatus = createStatusBadge("card-watch-status", obj.watchStatus, "Watching", "Seen", "Plan to watch", "Dropped");
         const genre = createGenrePill(`${obj.genre}`);
         
         createCard(title, episodes, seasons, releaseDate, watchStatus, genre, obj.id, removeBtn);
@@ -91,14 +91,14 @@ function addParagraphElement(textContent, className) {
     return paragraph;
 }
 
-function createStatusBadge(statusFor, selectedStatus, seen, watching, planToWatch, dropped) {
+function createStatusBadge(statusFor, selectedStatus, watching, seen, planToWatch, dropped) {
     const statusSelect = document.createElement("select");
 
     statusSelect.setAttribute("name", statusFor);
     statusSelect.setAttribute("id", statusFor);
     statusSelect.classList.add(selectedStatus);
 
-    const statusOptions = [seen, watching, planToWatch, dropped];
+    const statusOptions = [watching, seen, planToWatch, dropped];
     const splitStatus = selectedStatus.split("-");
     const joinedStatus = splitStatus.join(" ");
     // console.log(joinedStatus);
@@ -161,6 +161,13 @@ function createButton(textContent, className) {
 const modalSubmitButton = document.querySelector("#submit-add-show-btn");
 modalSubmitButton.addEventListener('click', userSubmittedShow);
 
+const form = document.querySelector("#add-show-form");
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    inputValidation();
+})
+
 function userSubmittedShow(event) {
     const formTitle = document.querySelector("#title").value;
     const formEpisodes = document.querySelector("#episodes").value;
@@ -181,7 +188,7 @@ function userSubmittedShow(event) {
     displayTvShowText(userAddedShow);
     event.preventDefault();
     closeDialog();
-    document.querySelector("#add-show-form").reset();
+    form.reset();
 }
 
 function removeShowData(event) {
