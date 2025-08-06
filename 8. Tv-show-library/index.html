@@ -28,15 +28,15 @@
             </div>
             <div class="form-group">
                 <label for="episodes">Episodes:</label>
-                <input type="number" name="episodes" id="episodes" min="0" required>
+                <input type="number" name="episodes" id="episodes" min="1" required>
             </div>
             <div class="form-group">
                 <label for="seasons">Seasons:</label>
-                <input type="number" name="seasons" id="seasons" min="0" required>
+                <input type="number" name="seasons" id="seasons" min="1" required>
             </div>
             <div class="form-group">
                 <label for="released">Released:</label>
-                <input type="date" name="released" id="released">
+                <input type="date" name="released" id="released" min="1950-01-01" required>
             </div>
             <div class="form-group">
                 <label for="watch-status">Watch status:</label>
@@ -54,7 +54,7 @@
 
             <div class="form-group button-group">
                 <button type="button" class="cancel-add-show-btn">Cancel</button>
-                <button type="submit" formmethod="dialog" id="submit-add-show-btn">Submit</button>
+                <button type="submit" id="submit-add-show-btn">Submit</button>
             </div>
         </form>
         </div>

@@ -165,6 +165,7 @@ dialog::backdrop {
 .show-title {
     font-size: 16px;
     font-weight: 600;
+    margin-bottom: 0.25em;
 }
 
 .show-genre-bg-colour {
@@ -182,13 +183,25 @@ dialog::backdrop {
 
 #card-watch-status {
     font: inherit;
-    /* height: 1.75em; */
     border-radius: 3px;
     padding: 0 0.25em;
+    margin-top: 0.25em;
 }
 
-#card-watch-status[value="Seen"] {
-    background: #a9eef0;
+.Seen {
+    border: 1px solid #0652DD;
+}
+
+.Watching {
+    border: 1px solid #84da0b;
+}
+
+.Plan-to-watch {
+    border: 1px solid #fbc531;
+}
+
+.Dropped {
+    border: 1px solid #c23616;
 }
 
 .show-genre {

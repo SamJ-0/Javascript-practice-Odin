@@ -1,3 +1,4 @@
+
 const body = document.querySelector(".container");
 const modal = document.querySelector(".modal");
 const openModal = document.querySelector(".add-show-btn");
@@ -20,7 +21,7 @@ const myLibrary = [];
 
 function Show(title, episodes, seasons, releaseDate, watchStatus, genre, id) {
     if (!new.target) {
-        throw Error("You must use the `new` operator to call the constructor");
+        throw Error("You must use the new operator to call the constructor");
     }
 
     this.title = title;
@@ -47,9 +48,7 @@ function displayTvShowText(obj) {
         const episodes = addParagraphElement(`Episodes: ${obj.episodes}`, "card-text");
         const seasons = addParagraphElement(`Seasons: ${obj.seasons}`, "card-text");
         const releaseDate = addParagraphElement(`Released: ${obj.releaseDate}`, "card-text");
-        // const watchStatus = addParagraphElement(`Watch status: ${obj.watchStatus}`, "card-text");
         const watchStatus = createStatusBadge("card-watch-status", obj.watchStatus, "Seen", "Watching", "Plan to watch", "Dropped");
-        // const watchStatus = createStatusBadge("Status:", "watch-status-btn", `${obj.watchStatus}`);
         const genre = createGenrePill(`${obj.genre}`);
         
         createCard(title, episodes, seasons, releaseDate, watchStatus, genre, obj.id, removeBtn);
@@ -100,9 +99,13 @@ function createStatusBadge(statusFor, selectedStatus, seen, watching, planToWatc
     statusSelect.classList.add(selectedStatus);
 
     const statusOptions = [seen, watching, planToWatch, dropped];
+    const splitStatus = selectedStatus.split("-");
+    const joinedStatus = splitStatus.join(" ");
+    // console.log(joinedStatus);
 
        statusOptions.forEach((element) => {
-         if(selectedStatus != element) {
+
+         if(joinedStatus != element) {
             statusSelect.appendChild(createStatusBadgeOptions(element));
          }
          else {
@@ -110,12 +113,25 @@ function createStatusBadge(statusFor, selectedStatus, seen, watching, planToWatc
          }
        })
 
+       
+    statusSelect.addEventListener('change', () => {
+      console.log(statusSelect.value);
+
+      if(statusSelect.value != selectedStatus) {
+        const removeWhiteSpace = statusSelect.value.split(" ");
+        const statusWithHyphen = removeWhiteSpace.join("-");
+
+        statusSelect.classList.replace(selectedStatus, statusWithHyphen);
+        selectedStatus = statusWithHyphen;
+      }
+    });
+
     return statusSelect;
 }
 
 function createStatusBadgeOptions(textContent) {
     const statusOption = document.createElement("option");
-
+    
     statusOption.value = textContent;
     statusOption.textContent = textContent;
 
@@ -182,4 +198,3 @@ function removeShowData(event) {
         card.remove();
        }
 }
-
