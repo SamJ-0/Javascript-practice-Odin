@@ -165,7 +165,7 @@ const form = document.querySelector("#add-show-form");
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    inputValidation();
+    // inputValidation();
 })
 
 function userSubmittedShow(event) {
