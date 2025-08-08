@@ -24,17 +24,17 @@
         <form id="add-show-form" action="/">
             <div class="form-group grid-col-span-2">
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" minlength="3" placeholder="Enter the name of a TV show">
+                <input type="text" name="title" id="title" placeholder="Enter the name of a TV show">
                 <div class="error"></div>
             </div>
             <div class="form-group">
                 <label for="episodes">Episodes:</label>
-                <input type="number" name="episodes" id="episodes" min="1">
+                <input type="number" name="episodes" id="episodes" placeholder="1">
                 <div class="error"></div>
             </div>
             <div class="form-group">
                 <label for="seasons">Seasons:</label>
-                <input type="number" name="seasons" id="seasons" min="1">
+                <input type="number" name="seasons" id="seasons" min="1" placeholder="1">
                 <div class="error"></div>
             </div>
             <div class="form-group">
@@ -50,10 +50,11 @@
                     <option value="Plan-to-watch">Plan to watch</option>
                     <option value="Dropped">Dropped</option>
                 </select>
+                <div class="error"></div>
             </div>
              <div class="form-group grid-col-span-2">
                 <label for="genre">Genre:</label>
-                <input type="text" name="genre" id="genre">
+                <input type="text" name="genre" id="genre" placeholder="Drama, Crime, Mystery, Comedy">
             </div>
 
             <div class="form-group button-group">

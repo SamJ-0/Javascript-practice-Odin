@@ -111,17 +111,23 @@ input {
     outline: 0;
 }
 
-.form-group.success input {
-    border-color: #84da0b;
+.form-group.error input {
+    border-color: #EA2027;
 }
 
-.form-group.error input {
-    border-color: #c23616;
+.form-group.error select {
+    border-color: #EA2027;
 }
 
 .form-group .error {
     font-size: 10px;
-    color: #c23616;
+    color: #EA2027;
+}
+
+.select-disabled{
+    color: #414141;
+    background-color: #dbdbdb;
+    border-color: #dbdbdb;
 }
 
 .grid-col-span-2 {

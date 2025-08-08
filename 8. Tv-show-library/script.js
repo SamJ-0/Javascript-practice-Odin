@@ -1,9 +1,18 @@
 
-const body = document.querySelector(".container");
+const bodyContainer = document.querySelector(".container");
 const modal = document.querySelector(".modal");
 const openModal = document.querySelector(".add-show-btn");
 const closeModal = document.querySelector(".cancel-add-show-btn");
 const closeDialogBtn = document.querySelector(".close-dialog");
+const modalSubmitButton = document.querySelector("#submit-add-show-btn");
+const form = document.querySelector("#add-show-form");
+
+const formTitle = document.querySelector("#title");
+const formEpisodes = document.querySelector("#episodes");
+const formSeasons = document.querySelector("#seasons");
+const formReleased = document.querySelector("#released");
+const formWatchStatus = document.querySelector("#watch-status");
+const formGenre = document.querySelector("#genre");
 
 openModal.addEventListener('click', () => {
     modal.showModal();
@@ -80,7 +89,7 @@ function createCard(cardTitle, cardEpisodes, cardSeasons, cardReleaseDate, cardW
     cardBody.appendChild(cardWatchStatus);
     cardBody.appendChild(cardGenre);
 
-    return body.appendChild(cardBody);
+    return bodyContainer.appendChild(cardBody);
 }
 
 function addParagraphElement(textContent, className) {
@@ -101,7 +110,6 @@ function createStatusBadge(statusFor, selectedStatus, watching, seen, planToWatc
     const statusOptions = [watching, seen, planToWatch, dropped];
     const splitStatus = selectedStatus.split("-");
     const joinedStatus = splitStatus.join(" ");
-    // console.log(joinedStatus);
 
        statusOptions.forEach((element) => {
 
@@ -158,38 +166,104 @@ function createButton(textContent, className) {
     return button;
 }
 
-const modalSubmitButton = document.querySelector("#submit-add-show-btn");
-modalSubmitButton.addEventListener('click', userSubmittedShow);
+// modalSubmitButton.addEventListener('click', userSubmittedShow);
 
-const form = document.querySelector("#add-show-form");
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // inputValidation();
-})
+    showInputValidation();
+});
 
-function userSubmittedShow(event) {
-    const formTitle = document.querySelector("#title").value;
-    const formEpisodes = document.querySelector("#episodes").value;
-    const formSeasons = document.querySelector("#seasons").value;
-    const formReleased = document.querySelector("#released").value;
-    const formWatchStatus = document.querySelector("#watch-status").value;
-    const formGenre = document.querySelector("#genre").value;
+formReleased.addEventListener('change', () => {
+            releaseDateValidation(formReleased.value);
+});
 
-    const formatReleaseDate = new Date(formReleased);
-    const releaseDateFormatted = new Intl.DateTimeFormat("en-GB", {
-        dateStyle: "long",
-    }).format(formatReleaseDate);
+function setErrorStatus(element, message) {
+    const inputElement = element.parentElement;
+    const formError = inputElement.querySelector(".error");
 
-    const userAddedShow = new Show(formTitle, formEpisodes, formSeasons, releaseDateFormatted, formWatchStatus, formGenre, crypto.randomUUID());
-
-    addShowToLibrary(userAddedShow);
-
-    displayTvShowText(userAddedShow);
-    event.preventDefault();
-    closeDialog();
-    form.reset();
+    formError.textContent = message;
+    inputElement.classList.add("error");
 }
+
+function setValidStatus(element) {
+    const inputElement = element.parentElement;
+    const formError = inputElement.querySelector(".error");
+
+    inputElement.classList.remove("error");
+
+    formError.textContent = "";
+}
+
+function setSelectDisabled() {
+    formWatchStatus.value = "Plan-to-watch";
+    console.log(formWatchStatus.selected = formWatchStatus.value);
+    formWatchStatus.classList.add("select-disabled");
+    formWatchStatus.disabled = true;
+}
+
+function setSelectDefault() {
+    formWatchStatus.classList.remove("select-disabled");
+    formWatchStatus.disabled = false;
+}
+
+function releaseDateValidation(releaseDate) {
+    const currentDate = new Date().toISOString().slice(0,10);
+    const futureDate = releaseDate > currentDate;
+
+          if(futureDate) {
+            setSelectDisabled();
+        } else {
+            setSelectDefault();
+        }
+}
+
+function showInputValidation() {
+    const title = formTitle.value.trim();
+    const episodes = formEpisodes.value.trim();
+    const seasons = formSeasons.value.trim();
+    const releaseDate = formReleased.value.trim();
+    const watchStatus = formWatchStatus.value.trim();
+
+    if(title.length < 1) {
+        setErrorStatus(formTitle, "You need to enter a show title!");
+    } else {
+        setValidStatus(formTitle);
+    }
+
+      console.log(watchStatus);
+
+    // if(episodes < 1) {
+    //     setErrorStatus(formEpisodes, "You need at least 1 episode");
+    // } else {
+    //     setValidStatus(formEpisodes);
+    // }
+
+}
+
+// function userSubmittedShow(event) {
+//     // const formTitle = document.querySelector("#title").value;
+//     // const formEpisodes = document.querySelector("#episodes").value;
+//     // const formSeasons = document.querySelector("#seasons").value;
+//     // const formReleased = document.querySelector("#released").value;
+//     // const formWatchStatus = document.querySelector("#watch-status").value;
+//     // const formGenre = document.querySelector("#genre").value;
+
+//     const formatReleaseDate = new Date(formReleased);
+//     const releaseDateFormatted = new Intl.DateTimeFormat("en-GB", {
+//         dateStyle: "long",
+//     }).format(formatReleaseDate);
+
+//     const userAddedShow = new Show(formTitle, formEpisodes, formSeasons, releaseDateFormatted, formWatchStatus, formGenre, crypto.randomUUID());
+
+//     addShowToLibrary(userAddedShow);
+
+//     displayTvShowText(userAddedShow);
+//     event.preventDefault();
+//     closeDialog();
+//     form.reset();
+// }
 
 function removeShowData(event) {
     const removeBtnId = event.target.getAttribute("data-attribute");
