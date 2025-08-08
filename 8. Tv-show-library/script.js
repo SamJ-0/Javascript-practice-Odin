@@ -123,7 +123,6 @@ function createStatusBadge(statusFor, selectedStatus, watching, seen, planToWatc
 
        
     statusSelect.addEventListener('change', () => {
-      console.log(statusSelect.value);
 
       if(statusSelect.value != selectedStatus) {
         const removeWhiteSpace = statusSelect.value.split(" ");
@@ -198,7 +197,6 @@ function setValidStatus(element) {
 
 function setSelectDisabled() {
     formWatchStatus.value = "Plan-to-watch";
-    console.log(formWatchStatus.selected = formWatchStatus.value);
     formWatchStatus.classList.add("select-disabled");
     formWatchStatus.disabled = true;
 }
@@ -231,8 +229,6 @@ function showInputValidation() {
     } else {
         setValidStatus(formTitle);
     }
-
-      console.log(watchStatus);
 
     // if(episodes < 1) {
     //     setErrorStatus(formEpisodes, "You need at least 1 episode");
