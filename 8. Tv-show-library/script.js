@@ -1,4 +1,3 @@
-
 const bodyContainer = document.querySelector(".container");
 const modal = document.querySelector(".modal");
 const openModal = document.querySelector(".add-show-btn");
@@ -14,228 +13,265 @@ const formReleased = document.querySelector("#released");
 const formWatchStatus = document.querySelector("#watch-status");
 const formGenre = document.querySelector("#genre");
 
-openModal.addEventListener('click', () => {
-    modal.showModal();
-})
+openModal.addEventListener("click", () => {
+  modal.showModal();
+});
 
-closeModal.addEventListener('click', closeDialog);
-closeDialogBtn.addEventListener('click', closeDialog);
-
+closeModal.addEventListener("click", closeDialog);
+closeDialogBtn.addEventListener("click", closeDialog);
 
 function closeDialog() {
-    modal.close();
+  modal.close();
 }
 
 const myLibrary = [];
 
 function Show(title, episodes, seasons, releaseDate, watchStatus, genre, id) {
-    if (!new.target) {
-        throw Error("You must use the new operator to call the constructor");
-    }
+  if (!new.target) {
+    throw Error("You must use the new operator to call the constructor");
+  }
 
-    this.title = title;
-    this.episodes = episodes;
-    this.seasons = seasons;
-    this.releaseDate = releaseDate;
-    this.watchStatus = watchStatus;
-    this.genre = genre;
-    this.id = id;
+  this.title = title;
+  this.episodes = episodes;
+  this.seasons = seasons;
+  this.releaseDate = releaseDate;
+  this.watchStatus = watchStatus;
+  this.genre = genre;
+  this.id = id;
 
-    this.info = function() {
-        return `${this.title}, Episodes: ${this.episodes}, Seasons: ${this.seasons}, Released: ${this.releaseDate}, Seen: ${this.watchStatus}`;
-    }
+  this.info = function () {
+    return `${this.title}, Episodes: ${this.episodes}, Seasons: ${this.seasons}, Released: ${this.releaseDate}, Seen: ${this.watchStatus}`;
+  };
 }
 
 function addShowToLibrary(obj) {
-    myLibrary.push(obj);
+  myLibrary.push(obj);
 }
 
 function displayTvShowText(obj) {
+  const removeBtn = createButton("X", "remove-btn");
+  const title = addParagraphElement(`${obj.title}`, "show-title");
+  const episodes = addParagraphElement(
+    `Episodes: ${obj.episodes}`,
+    "card-text"
+  );
+  const seasons = addParagraphElement(`Seasons: ${obj.seasons}`, "card-text");
+  const releaseDate = addParagraphElement(
+    `Released: ${obj.releaseDate}`,
+    "card-text"
+  );
+  const watchStatus = createStatusBadge(
+    "card-watch-status",
+    obj.watchStatus,
+    "Watching",
+    "Seen",
+    "Plan to watch",
+    "Dropped"
+  );
+  const genre = createGenrePill(`${obj.genre}`);
 
-        const removeBtn = createButton("X", "remove-btn")
-        const title = addParagraphElement(`${obj.title}`, "show-title");
-        const episodes = addParagraphElement(`Episodes: ${obj.episodes}`, "card-text");
-        const seasons = addParagraphElement(`Seasons: ${obj.seasons}`, "card-text");
-        const releaseDate = addParagraphElement(`Released: ${obj.releaseDate}`, "card-text");
-        const watchStatus = createStatusBadge("card-watch-status", obj.watchStatus, "Watching", "Seen", "Plan to watch", "Dropped");
-        const genre = createGenrePill(`${obj.genre}`);
-        
-        createCard(title, episodes, seasons, releaseDate, watchStatus, genre, obj.id, removeBtn);
-    
+  createCard(
+    title,
+    episodes,
+    seasons,
+    releaseDate,
+    watchStatus,
+    genre,
+    obj.id,
+    removeBtn
+  );
 }
 
-function createCard(cardTitle, cardEpisodes, cardSeasons, cardReleaseDate, cardWatchStatus, cardGenre, cardId, removeButton ) {
-    const cardBody = document.createElement("div");
-    cardBody.classList.add("card");
-    cardBody.setAttribute("data-attribute", cardId);
-    removeButton.setAttribute("data-attribute", cardId);
+function createCard(
+  cardTitle,
+  cardEpisodes,
+  cardSeasons,
+  cardReleaseDate,
+  cardWatchStatus,
+  cardGenre,
+  cardId,
+  removeButton
+) {
+  const cardBody = document.createElement("div");
+  cardBody.classList.add("card");
+  cardBody.setAttribute("data-attribute", cardId);
+  removeButton.setAttribute("data-attribute", cardId);
 
-    removeButton.addEventListener('click', removeShowData);
+  removeButton.addEventListener("click", removeShowData);
 
-    const cardGradient = document.createElement("div");
-    cardGradient.classList.add("card-gradient");
-    cardBody.appendChild(cardGradient);
+  const cardGradient = document.createElement("div");
+  cardGradient.classList.add("card-gradient");
+  cardBody.appendChild(cardGradient);
 
-    const statusLabel = document.createElement("label");
-    statusLabel.setAttribute("for", "card-watch-status");
-    statusLabel.textContent = "Status: ";
+  const statusLabel = document.createElement("label");
+  statusLabel.setAttribute("for", "card-watch-status");
+  statusLabel.textContent = "Status: ";
 
-    cardBody.appendChild(removeButton);
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(cardEpisodes);
-    cardBody.appendChild(cardSeasons);
-    cardBody.appendChild(cardReleaseDate);
-    cardBody.appendChild(statusLabel);
-    cardBody.appendChild(cardWatchStatus);
-    cardBody.appendChild(cardGenre);
+  cardBody.appendChild(removeButton);
+  cardBody.appendChild(cardTitle);
+  cardBody.appendChild(cardEpisodes);
+  cardBody.appendChild(cardSeasons);
+  cardBody.appendChild(cardReleaseDate);
+  cardBody.appendChild(statusLabel);
+  cardBody.appendChild(cardWatchStatus);
+  cardBody.appendChild(cardGenre);
 
-    return bodyContainer.appendChild(cardBody);
+  return bodyContainer.appendChild(cardBody);
 }
 
 function addParagraphElement(textContent, className) {
-    const paragraph = document.createElement("p");
-    paragraph.textContent = textContent;
-    paragraph.classList.add(className);
+  const paragraph = document.createElement("p");
+  paragraph.textContent = textContent;
+  paragraph.classList.add(className);
 
-    return paragraph;
+  return paragraph;
 }
 
-function createStatusBadge(statusFor, selectedStatus, watching, seen, planToWatch, dropped) {
-    const statusSelect = document.createElement("select");
+function createStatusBadge(
+  statusFor,
+  selectedStatus,
+  watching,
+  seen,
+  planToWatch,
+  dropped
+) {
+  const statusSelect = document.createElement("select");
 
-    statusSelect.setAttribute("name", statusFor);
-    statusSelect.setAttribute("id", statusFor);
-    statusSelect.classList.add(selectedStatus);
+  statusSelect.setAttribute("name", statusFor);
+  statusSelect.setAttribute("id", statusFor);
+  statusSelect.classList.add(selectedStatus);
 
-    const statusOptions = [watching, seen, planToWatch, dropped];
-    const splitStatus = selectedStatus.split("-");
-    const joinedStatus = splitStatus.join(" ");
+  const statusOptions = [watching, seen, planToWatch, dropped];
+  const splitStatus = selectedStatus.split("-");
+  const joinedStatus = splitStatus.join(" ");
 
-       statusOptions.forEach((element) => {
+  statusOptions.forEach((element) => {
+    if (joinedStatus != element) {
+      statusSelect.appendChild(createStatusBadgeOptions(element));
+    } else {
+      statusSelect.appendChild(
+        createStatusBadgeOptions(element)
+      ).selected = true;
+    }
+  });
 
-         if(joinedStatus != element) {
-            statusSelect.appendChild(createStatusBadgeOptions(element));
-         }
-         else {
-            statusSelect.appendChild(createStatusBadgeOptions(element)).selected = true;
-         }
-       })
+  statusSelect.addEventListener("change", () => {
+    if (statusSelect.value != selectedStatus) {
+      const removeWhiteSpace = statusSelect.value.split(" ");
+      const statusWithHyphen = removeWhiteSpace.join("-");
 
-       
-    statusSelect.addEventListener('change', () => {
+      statusSelect.classList.replace(selectedStatus, statusWithHyphen);
+      selectedStatus = statusWithHyphen;
+    }
+  });
 
-      if(statusSelect.value != selectedStatus) {
-        const removeWhiteSpace = statusSelect.value.split(" ");
-        const statusWithHyphen = removeWhiteSpace.join("-");
-
-        statusSelect.classList.replace(selectedStatus, statusWithHyphen);
-        selectedStatus = statusWithHyphen;
-      }
-    });
-
-    return statusSelect;
+  return statusSelect;
 }
 
 function createStatusBadgeOptions(textContent) {
-    const statusOption = document.createElement("option");
-    
-    statusOption.value = textContent;
-    statusOption.textContent = textContent;
+  const statusOption = document.createElement("option");
 
-    return statusOption;
+  statusOption.value = textContent;
+  statusOption.textContent = textContent;
+
+  return statusOption;
 }
 
 function createGenrePill(textContent) {
-    const genreBackground = document.createElement("div");
-    genreBackground.classList.add("show-genre-bg-colour");
+  const genreBackground = document.createElement("div");
+  genreBackground.classList.add("show-genre-bg-colour");
 
-    const genre = addParagraphElement(textContent);
-    genre.classList.add("show-genre");
-    genreBackground.appendChild(genre);
+  const genre = addParagraphElement(textContent);
+  genre.classList.add("show-genre");
+  genreBackground.appendChild(genre);
 
-    return genreBackground;
+  return genreBackground;
 }
 
 function createButton(textContent, className) {
-    const button = document.createElement("button");
+  const button = document.createElement("button");
 
-    button.textContent = textContent;
-    button.classList.add(className);
+  button.textContent = textContent;
+  button.classList.add(className);
 
-    return button;
+  return button;
 }
 
 // modalSubmitButton.addEventListener('click', userSubmittedShow);
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    showInputValidation();
+  showInputValidation();
 });
 
-formReleased.addEventListener('change', () => {
-            releaseDateValidation(formReleased.value);
+formReleased.addEventListener("change", () => {
+  releaseDateValidation(formReleased.value);
 });
 
 function setErrorStatus(element, message) {
-    const inputElement = element.parentElement;
-    const formError = inputElement.querySelector(".error");
+  const inputElement = element.parentElement;
+  const formError = inputElement.querySelector(".error");
 
-    formError.textContent = message;
-    inputElement.classList.add("error");
+  formError.textContent = message;
+  inputElement.classList.add("error");
 }
 
 function setValidStatus(element) {
-    const inputElement = element.parentElement;
-    const formError = inputElement.querySelector(".error");
+  const inputElement = element.parentElement;
+  const formError = inputElement.querySelector(".error");
 
-    inputElement.classList.remove("error");
+  inputElement.classList.remove("error");
 
-    formError.textContent = "";
+  formError.textContent = "";
 }
 
 function setSelectDisabled() {
-    formWatchStatus.value = "Plan-to-watch";
-    formWatchStatus.classList.add("select-disabled");
-    formWatchStatus.disabled = true;
+  formWatchStatus.value = "Plan-to-watch";
+  formWatchStatus.classList.add("select-disabled");
+  formWatchStatus.disabled = true;
 }
 
 function setSelectDefault() {
-    formWatchStatus.classList.remove("select-disabled");
-    formWatchStatus.disabled = false;
+  formWatchStatus.classList.remove("select-disabled");
+  formWatchStatus.disabled = false;
 }
 
 function releaseDateValidation(releaseDate) {
-    const currentDate = new Date().toISOString().slice(0,10);
-    const futureDate = releaseDate > currentDate;
+  const currentDate = new Date().toISOString().slice(0, 10);
+  const futureDate = releaseDate > currentDate;
 
-          if(futureDate) {
-            setSelectDisabled();
-        } else {
-            setSelectDefault();
-        }
+  if (futureDate) {
+    setSelectDisabled();
+  } else {
+    setSelectDefault();
+  }
 }
 
 function showInputValidation() {
-    const title = formTitle.value.trim();
-    const episodes = formEpisodes.value.trim();
-    const seasons = formSeasons.value.trim();
-    const releaseDate = formReleased.value.trim();
-    const watchStatus = formWatchStatus.value.trim();
+  const title = formTitle.value.trim();
+  const episodes = formEpisodes.value.trim();
+  const seasons = formSeasons.value.trim();
+  const releaseDate = formReleased.value.trim();
+  const watchStatus = formWatchStatus.value.trim();
 
-    if(title.length < 1) {
-        setErrorStatus(formTitle, "You need to enter a show title!");
-    } else {
-        setValidStatus(formTitle);
-    }
+  if (title.length < 1) {
+    setErrorStatus(formTitle, "You need to enter a show title!");
+  } else {
+    setValidStatus(formTitle);
+  }
 
-    // if(episodes < 1) {
-    //     setErrorStatus(formEpisodes, "You need at least 1 episode");
-    // } else {
-    //     setValidStatus(formEpisodes);
-    // }
+  if (episodes < 1) {
+    setErrorStatus(formEpisodes, "You need at least 1 episode");
+  } else {
+    setValidStatus(formEpisodes);
+  }
 
+  if (seasons < 1) {
+    setErrorStatus(formSeasons, "You need at least 1 season");
+  } else {
+    setValidStatus(formSeasons);
+  }
 }
 
 // function userSubmittedShow(event) {
@@ -262,16 +298,16 @@ function showInputValidation() {
 // }
 
 function removeShowData(event) {
-    const removeBtnId = event.target.getAttribute("data-attribute");
-    const card = event.target.closest(".card");
-    const cardId = card.getAttribute("data-attribute");
+  const removeBtnId = event.target.getAttribute("data-attribute");
+  const card = event.target.closest(".card");
+  const cardId = card.getAttribute("data-attribute");
 
-    const libraryId = myLibrary.findIndex((item) => {
-        return removeBtnId === item.id;
-    })
+  const libraryId = myLibrary.findIndex((item) => {
+    return removeBtnId === item.id;
+  });
 
-     if(removeBtnId === cardId) {
-        myLibrary.splice(libraryId, 1);
-        card.remove();
-       }
+  if (removeBtnId === cardId) {
+    myLibrary.splice(libraryId, 1);
+    card.remove();
+  }
 }
